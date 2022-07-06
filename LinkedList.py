@@ -99,6 +99,12 @@ class LinkedList:
         return listLen
 
     def insert(self, afterNode, newNode):
+        if afterNode is None and self.head is None:
+            self.head = newNode
+            self.tail = newNode
+            newNode.next = None
+            return
+        
         if afterNode is None:
             newNode.next = self.head
             self.head = newNode

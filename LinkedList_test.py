@@ -370,3 +370,16 @@ class TestInsert:
         
         assert list1 == list2
         assert (head, tail) == (list1.head, list1.tail)
+
+    def test_insert_into_empty_list(self):
+        val = 1        
+                
+        list1 = LinkedList()
+        list2 = make_linked_list([val+1])
+        node = Node(val + 1)
+        
+        (head, tail) = (node, node) 
+        list1.insert(None, node)                
+        
+        assert list1 == list2
+        assert (head, tail) == (list1.head, list1.tail)
