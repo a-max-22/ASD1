@@ -417,7 +417,37 @@ class TestInsert(unittest.TestCase):
         self.assertEqual(node, get_n_th_node(linkedList, insertPos))
         self.assertEqual((head, tail), (linkedList.head, linkedList.tail))
 
-    
+    def test_insert_into_one_elem_list(self):
+        val = 3
+        regList  = [val+1]
+        regList2 = [val+1] + [val]
+        linkedList = make_linked_list(regList)
+        expectedLinkedList = make_linked_list(regList2)
+
+        node = Node(val)
+        head,tail  = linkedList.head, node
+
+        linkedList.insert(linkedList.head, node)
+        
+        self.assertEqual(linkedList, expectedLinkedList)        
+        self.assertEqual((head, tail), (linkedList.head, linkedList.tail))        
+
+    def test_insert_into_one_elem_list_tail(self):
+        val = 3
+        regList  = [val+1]
+        regList2 = [val+1] + [val]
+        linkedList = make_linked_list(regList)
+        expectedLinkedList = make_linked_list(regList2)
+
+        node = Node(val)
+        head,tail  = linkedList.head, node
+
+        linkedList.insert(None, node)
+        
+        self.assertEqual(linkedList, expectedLinkedList)        
+        self.assertEqual((head, tail), (linkedList.head, linkedList.tail))        
+        
+        
     def test_insert_to_empty(self):
         val = 3
         regList  = [val]
@@ -514,6 +544,25 @@ class TestAddInHead(unittest.TestCase):
         self.assertEqual(linkedList, expectedLinkedList)
         self.assertEqual(linkedList.head.next, get_n_th_node(linkedList, 1))
         self.assertEqual((head, tail), (linkedList.head, linkedList.tail))
+
+    def test_add_in_head_one_elem_list(self):
+        val = 3          
+
+        regList  = [val+1]
+        regList2 = [val]+[val+1]
+
+        linkedList = make_linked_list(regList)
+        expectedLinkedList = make_linked_list(regList2)
+
+        node = Node(val)
+        linkedList.add_in_head(node)
+
+        head,tail = node,linkedList.tail
+        
+        self.assertEqual(linkedList, expectedLinkedList)
+        self.assertEqual(linkedList.head.next, get_n_th_node(linkedList, 1))
+        self.assertEqual((head, tail), (linkedList.head, linkedList.tail))
+
 
 
 class TestClean(unittest.TestCase):

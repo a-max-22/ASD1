@@ -46,7 +46,6 @@ class LinkedList2:
             selfNodeFwd, otherNodeFwd   = selfNodeFwd.next, otherNodeFwd.next
             selfNodeBack, otherNodeBack = selfNodeBack.prev, otherNodeBack.prev
 
-
     def find(self, val):
         node = self.head
         while node is not None:
@@ -117,8 +116,12 @@ class LinkedList2:
         else:
             next = afterNode.next 
             afterNode.next = newNode
-
-        next.prev = newNode
+        
+        if next is None:
+            self.tail = newNode
+        else:
+            next.prev = newNode
+            
         newNode.next = next
         newNode.prev = afterNode
         
@@ -132,7 +135,4 @@ class LinkedList2:
             prevHead.prev  = self.head
             self.head.next = prevHead
         else:
-            self.tail = newNode
-            
-     
-            
+            self.tail = newNode            
