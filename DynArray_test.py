@@ -19,16 +19,12 @@ def fill_dyn_array(array, lst):
 
 def array_values_eq(array1, array2):
     if len(array1) != len(array2):
-        #print(len(array1), len(array2))
         return False        
         
     result = True    
     for i in range(0, len(array1)):  
-        #print(i, array1[i], array2[i])
         if array1[i] != array2[i]:
-            #print("fin lfase")    
             return False
-    #print("fin")
     return result 
 
 
@@ -64,20 +60,37 @@ class TestInsert(unittest.TestCase):
         self.assertEqual((count,capacity), (actual.count, actual.capacity))
 
         
-    def test_insert(self):
-        N = 5
-        val = 4
-        pos = 3
+    def test_insert_non_empty_not_grow_buf(self):
+        N = 14
+        val = N+1
+        pos = 5
         
-        lst = [val-1]*N        
-        lstExpected = [val-1]*pos + [val] + [val-1] * (N-pos)        
+        lst = [x for x in range (0,N)]
+        lstExpected = [x for x in range (0,pos)] + [val] + [x for x in range (pos,N)]
         
         actual   = make_dyn_array(lst)
         expected = make_dyn_array(lstExpected)
         count,capacity = actual.count+1, actual.capacity
         
         actual.insert(pos, val)
+                
+        self.assertTrue(array_values_eq(actual,expected))        
+        self.assertEqual((count,capacity), (actual.count, actual.capacity))
+
+    def test_insert_non_empty_not_grow_buf_bound(self):
+        N = 15
+        val = N+1
+        pos = 5
         
+        lst = [x for x in range (0,N)]
+        lstExpected = [x for x in range (0,pos)] + [val] + [x for x in range (pos,N)]
+        
+        actual   = make_dyn_array(lst)
+        expected = make_dyn_array(lstExpected)
+        count,capacity = actual.count+1, actual.capacity
+        
+        actual.insert(pos, val)
+                
         self.assertTrue(array_values_eq(actual,expected))        
         self.assertEqual((count,capacity), (actual.count, actual.capacity))
         
@@ -153,7 +166,7 @@ class TestDelete(unittest.TestCase):
         self.assertEqual((count,capacity), (array.count, array.capacity))
 
     
-    def test_delete_no_reduce(self):
+    def test_delete_no_reduce_capacity(self):
         N = 15
         pos = 4
         lst = [x for x in range(0,N)]
@@ -259,6 +272,7 @@ class TestDelete(unittest.TestCase):
         lstExpected = [x for x in range(0,pos)] + [x for x in range(pos+1,N)]
         
         actual   = make_dyn_array(lst)        
+        actual.resize((N-1)*2)
         
         expected = make_dyn_array(lstExpected)
         

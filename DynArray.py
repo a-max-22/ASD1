@@ -32,7 +32,7 @@ class DynArray:
         self.count += 1
 
     def _advance_count(self):
-        if (self.count + 1 < self.capacity):
+        if (self.count + 1 <= self.capacity):
             self.count += 1
             return                
         self.resize(2 * self.capacity)
