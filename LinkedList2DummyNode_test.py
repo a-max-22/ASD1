@@ -1,24 +1,20 @@
 import unittest
-from LinkedList2 import LinkedList2, Node
+from LinkedList2DummyNode import LinkedList2, Node, DummyNode
 
 
 def make_linked_list(initialList):        
     result = LinkedList2()
     for val in initialList:
-        result.add_in_tail(Node(val))
-            
+        result.add_in_tail(Node(val))            
     return result
-
 
 def get_n_th_node(linkedList, n):
     node = linkedList.head()
     prev = None
     i = 0
-    
     while not linkedList.is_past_end(node) and i < n:
         i += 1
-        node = node.next
-        
+        node = node.next        
     return node
     
 def get_linked_list_nodes_by_indexes(linkedList, indexes):
@@ -27,7 +23,6 @@ def get_linked_list_nodes_by_indexes(linkedList, indexes):
         node = get_n_th_node(linkedList, i)
         if node is not None:
             result.append(node)
-
     return result
 
 
@@ -48,8 +43,7 @@ class TestEquality(unittest.TestCase):
     def test_empty_neq_non_empty(self):
         emptyList = LinkedList2()
         nonEmptyList = make_linked_list([1,2,3])
-        singleElemList = make_linked_list([1])
-        
+        singleElemList = make_linked_list([1])        
         self.assertFalse(emptyList == nonEmptyList)
         self.assertFalse(emptyList == singleElemList)
 
@@ -92,8 +86,6 @@ class TestFind(unittest.TestCase):
         
         self.assertEqual(linkedList.find(valueToFind), get_n_th_node(linkedList, valueToFindPos))
         self.assertEqual((head,tail), (linkedList.head(), linkedList.tail()))
- 
-
 
     def test_find_in_head(self):
         valueToFind = 3
@@ -106,7 +98,6 @@ class TestFind(unittest.TestCase):
         self.assertEqual(linkedList.find(valueToFind), linkedList.head())
         self.assertEqual((head,tail), (linkedList.head(), linkedList.tail()))
         
-
     def test_find_in_tail(self):
         valueToFind = 3
         N = 5
@@ -149,8 +140,6 @@ class TestFind(unittest.TestCase):
         
         self.assertEqual(linkedList.find(valueToFind),  None)
         self.assertEqual(None, None)
-
-        
 
 class TestFind(unittest.TestCase):
     
@@ -331,7 +320,6 @@ class TestDeleteAll(unittest.TestCase):
 
         self.assertEqual(linkedList, LinkedList2())
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
-
     
     def test_delete_absent_elem(self):
         val = 3
@@ -347,7 +335,6 @@ class TestDeleteAll(unittest.TestCase):
         self.assertEqual(linkedList, expectedLinkedList)
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
     
-
     def test_delete_head(self):
         val = 3
         N = 17
@@ -410,7 +397,6 @@ class TestDeleteAll(unittest.TestCase):
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
 
 
-
 class TestInsert(unittest.TestCase):
     
     def test_insert_to_list(self):
@@ -460,8 +446,7 @@ class TestInsert(unittest.TestCase):
         linkedList.insert(None, node)
         
         self.assertEqual(linkedList, expectedLinkedList)        
-        self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))        
-        
+        self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))       
     
     def test_insert_to_empty(self):
         val = 3
@@ -476,7 +461,6 @@ class TestInsert(unittest.TestCase):
         
         self.assertEqual(linkedList, expectedLinkedList)        
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
-
 
     def test_insert_into_tail(self):
         val = 3
@@ -498,7 +482,6 @@ class TestInsert(unittest.TestCase):
         self.assertEqual(node, get_n_th_node(linkedList, N))
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
 
-
     def test_insert_after_head(self):
         val = 3
         N = 17  
@@ -519,7 +502,6 @@ class TestInsert(unittest.TestCase):
         self.assertEqual(node, get_n_th_node(linkedList, 1))
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
 
-
 class TestAddInHead(unittest.TestCase):
 
     def test_add_in_empty_list(self):
@@ -538,7 +520,6 @@ class TestAddInHead(unittest.TestCase):
         self.assertEqual(linkedList, expectedLinkedList)
         self.assertEqual(node, get_n_th_node(linkedList, 0))        
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
-        
 
     def test_add_in_head(self):
         val = 3
@@ -577,8 +558,6 @@ class TestAddInHead(unittest.TestCase):
         self.assertEqual(linkedList.head().next, get_n_th_node(linkedList, 1))
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
 
-
-
 class TestClean(unittest.TestCase):
 
     def test_clean(self):
@@ -605,7 +584,6 @@ class TestClean(unittest.TestCase):
         self.assertEqual(linkedList, expectedLinkedList)
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
 
-
 class TestLen(unittest.TestCase):
 
     def test_len_empty(self):
@@ -625,3 +603,4 @@ class TestLen(unittest.TestCase):
         
         self.assertEqual(linkedList.len(), expectedLen)
         self.assertEqual((head, tail), (linkedList.head(), linkedList.tail()))
+        
