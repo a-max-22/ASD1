@@ -18,7 +18,7 @@ class TestPush(unittest.TestCase):
     
     def test_push_nonempty(self):        
         N = 16
-        expected = [x for x in range(0, N+1)]
+        expected = [N]+[x for x in range(0, N)]
         actualContainer = [x for x in range(0, N)]        
         actual = Stack()
         actual.stack = actualContainer       
@@ -58,14 +58,14 @@ class TestPop(unittest.TestCase):
     
     def test_pop_non_last_non_empty(self):
         N = 17
-        expected = [x for x in range(0,N)]
-        actualContainer = [x for x in range(0,N+1)]
+        expected = [x for x in range(1,N)]
+        actualContainer = [x for x in range(0,N)]
         actual = Stack()
         actual.stack = actualContainer
         val = actual.pop()
         self.assertTrue(check_stack(actual, expected))
-        self.assertEqual(val, N)
-        self.assertEqual(actual.size(), N)
+        self.assertEqual(val, 0)
+        self.assertEqual(actual.size(), N-1)
 
 class TestPeek(unittest.TestCase):
 
@@ -85,7 +85,7 @@ class TestPeek(unittest.TestCase):
         actual.stack = actualContainer
         val = actual.peek()
         self.assertTrue(check_stack(actual, expected))
-        self.assertEqual(val, N)
+        self.assertEqual(val, 0)
         self.assertEqual(actual.size(), N+1)
 
 
