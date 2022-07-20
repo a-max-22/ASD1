@@ -6,14 +6,14 @@ class Node:
         self.next = None
 
 class DummyNode(Node):
-    def __init__(self, v):
-        super().__init__(v)
+    def __init__(self):
+        super().__init__(None)
         
 
 class LinkedList2:
     def __init__(self):
-        self.dummyHead = DummyNode(None)
-        self.dummyTail = DummyNode(None)
+        self.dummyHead = DummyNode()
+        self.dummyTail = DummyNode()
         self.dummyHead.next = self.dummyTail
         self.dummyHead.prev = self.dummyTail
         self.dummyTail.next = self.dummyHead
