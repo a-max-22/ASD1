@@ -295,7 +295,7 @@ class TestDelete(unittest.TestCase):
         val = 3
         C = 4
         actual = [x for x in range(0,val)] + [val]*C + [x for x in range(val+1,val+3)]
-        expected = [x for x in range(0,val)] + [x for x in range(val+1,val+3)]        
+        expected = [x for x in range(0,val)] + [val]*(C-1)+ [x for x in range(val+1,val+3)]        
         lstAsc = make_ordered_list(actual, asc = True)
         lstAsc.delete(val)
         contents = lstAsc.get_all()
@@ -310,7 +310,7 @@ class TestDelete(unittest.TestCase):
 
     def test_del_head(self):
         N = 17
-        C = 3
+        C = 1
         actual = [0]*C + [x for x in range(1,N)]        
         lst = make_ordered_list(actual, asc = True)
         before = lst.get_all()
@@ -322,7 +322,7 @@ class TestDelete(unittest.TestCase):
         
     def test_del_tail(self):
         N = 17
-        C = 3
+        C = 1
         actual = [x for x in range(0,N)] + [N]*C
         lst = make_ordered_list(actual, asc = True)
         before = lst.get_all()
@@ -331,18 +331,7 @@ class TestDelete(unittest.TestCase):
         self.assertTrue(checkNodesValues(after, actual[:N]))
         self.assertTrue(checkNodesLinks(after))
         self.assertEqual((lst.head, lst.tail), (before[0], before[-C-1]))
-    
-    def test_del_all(self):
-        N = 17
-        C = 5
-        actual = [N]*C
-        lst = make_ordered_list(actual, asc = True)
-        before = lst.get_all()
-        lst.delete(N)
-        after = lst.get_all()
-        self.assertTrue(checkNodesValues(after, []))        
-        self.assertEqual((lst.head, lst.tail), (None, None))
-    
+        
     def test_del_single(self):
         N = 17        
         actual = [N]
@@ -353,7 +342,6 @@ class TestDelete(unittest.TestCase):
         self.assertTrue(checkNodesValues(after, []))        
         self.assertEqual((lst.head, lst.tail), (None, None))
         
-
 class TestClean(unittest.TestCase):
 
     def test_clean_empty(self):

@@ -61,20 +61,19 @@ class OrderedList:
     def delete(self, val):
         if self.head is None:
             return
-        nextNode = self.find_next_node_by_order(val)
-        prevNode = nextNode.prev if nextNode is not None else self.tail
-        while prevNode is not None:
-            if prevNode.value != val:
-                break
-            prevNode = prevNode.prev
-        if nextNode is None:
-            self.tail = prevNode
-        if nextNode is not None:
-            nextNode.prev = prevNode
-        if prevNode is None:
-            self.head = nextNode
+        nodeToDel = self.find(val)
+        if nodeToDel is None:
             return
-        prevNode.next = nextNode
+        next = nodeToDel.next
+        prev = nodeToDel.prev
+        if next is None:
+            self.tail = prev
+        if prev is None:
+            self.head = next
+        if prev is not None:
+            prev.next = next
+        if next is not None:
+            next.prev = prev
         
     def clean(self, asc):
         self.__ascending = asc
