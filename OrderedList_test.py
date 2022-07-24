@@ -188,8 +188,18 @@ class TestFind(unittest.TestCase):
         self.assertTrue(checkNodesValues(contents, []))
         self.assertTrue(checkNodesLinks(contents))
         self.assertEqual((lst.head, lst.tail),(None, None))
+
+    def test_find_absent_single_asc(self):
+        val = 3
+        actual = [val+1]
+        lst = make_ordered_list(actual, asc = True)
+        node = lst.find(val)
+        contents = lst.get_all()
+        self.assertTrue(node is None)
+        self.assertTrue(checkNodesValues(contents, actual))
+        self.assertTrue(checkNodesLinks(contents))
     
-    def test_find_absent(self):
+    def test_find_absent_multi_asc(self):
         val = 3
         actual = [x for x in range(1,val)] + [x for x in range(val+1,val+3)]
         lst = make_ordered_list(actual, asc = True)
@@ -197,6 +207,16 @@ class TestFind(unittest.TestCase):
         contents = lst.get_all()
         self.assertTrue(node is None)
         self.assertTrue(checkNodesValues(contents, actual))
+        self.assertTrue(checkNodesLinks(contents))
+
+    def test_find_absent_multi_desc(self):
+        val = 3
+        actual = [x for x in range(1,val)] + [x for x in range(val+1,val+3)]
+        lst = make_ordered_list(actual, asc = False)
+        node = lst.find(val)
+        contents = lst.get_all()
+        self.assertTrue(node is None)
+        self.assertTrue(checkNodesValues(contents, actual[::-1]))
         self.assertTrue(checkNodesLinks(contents))
     
     def test_find_in_the_middle_asc(self):
@@ -322,6 +342,17 @@ class TestDelete(unittest.TestCase):
         after = lst.get_all()
         self.assertTrue(checkNodesValues(after, []))        
         self.assertEqual((lst.head, lst.tail), (None, None))
+    
+    def test_del_single(self):
+        N = 17        
+        actual = [N]
+        lst = make_ordered_list(actual, asc = True)
+        before = lst.get_all()
+        lst.delete(N)
+        after = lst.get_all()
+        self.assertTrue(checkNodesValues(after, []))        
+        self.assertEqual((lst.head, lst.tail), (None, None))
+        
 
 class TestClean(unittest.TestCase):
 

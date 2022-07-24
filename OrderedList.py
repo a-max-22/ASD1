@@ -52,6 +52,8 @@ class OrderedList:
         nextNode = self.find_next_node_by_order(val)
         if nextNode is None:
             return self.tail if self.tail.value == val else None
+        if nextNode.prev is None:
+            return None
         if nextNode.prev.value != val:
             return None
         return nextNode.prev
