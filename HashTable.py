@@ -17,7 +17,7 @@ class HashTable:
         while self.slots[slot] is not None:
             if self.slots[slot] == value:
                 return slot
-            slot = (slot + self.step) % self.size            
+            slot = (slot + self.step) % self.size
             if slot == initialSlot:
                 return None      
         return slot
@@ -34,6 +34,7 @@ class HashTable:
         while self.slots[slot] is not None:
             if self.slots[slot] == value:
                 return slot
+            slot = (slot + self.step) % self.size
             if slot == initialSlot:
-                return None   
+                return None
         return None

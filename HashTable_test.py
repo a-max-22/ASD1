@@ -108,16 +108,16 @@ class TestFind(unittest.TestCase):
         slot = tab.find(valToFind)
         self.assertEqual(slot, None)
 
-    def test_find_no_collision(self):
+    def test_find_single(self):
         size = 5
         step = 2
         tab = HashTable(sz = size, stp = step)
         val = chr(36)
         slotExpected = tab.put(val)
         slotFound = tab.find(val)
-        self.assertEqual(slotExpected, slotFound)
-
-    def test_find_several_collisions(self):
+        self.assertEqual(slotExpected, slotFound)       
+    
+    def test_find_several_no_collisions(self):
         size = 5
         step = 2
         tab = HashTable(sz = size, stp = step)
@@ -131,7 +131,7 @@ class TestFind(unittest.TestCase):
             slotsExpected.append(tab.find(v))         
         self.assertEqual(slotsExpected, slotsActual)
         
-    def test_seek_slot_full_table(self):
+    def test_find_full_table(self):
         size = 4
         step = 2
         tab = HashTable(sz = size, stp = step)
@@ -143,3 +143,52 @@ class TestFind(unittest.TestCase):
         slotExpected = tab.find(values[-1])     
         self.assertEqual(slotExpected, slotsActual[-1])
     
+    def test_find_collisions(self):
+        size = 20
+        step = 3
+        tab = HashTable(sz = size, stp = step)
+        rem = 3
+        val1 = chr(size*2 + rem)
+        tab.put(val1)
+        val2 = chr(size*3 + rem)
+        slotExpected = tab.put(val2)
+        slotActual = tab.find(val2)
+        self.assertEqual(slotExpected, slotActual)
+
+    def test_find_several_collisions(self):
+        size = 20
+        step = 3
+        tab  = HashTable(sz = size, stp = step)
+        rem  = 3
+        val1 = chr(size*2 + rem)
+        tab.put(val1)
+        val2 = chr(size*3 + rem)
+        slotExpected = tab.put(val2)
+        slotActual = tab.find(val2)
+        self.assertEqual(slotExpected, slotActual)
+    
+    def test_find_absent_collisions(self):
+        size = 17
+        step = 3
+        tab  = HashTable(sz = size, stp = step)
+        rem = 1
+        values = [chr(size*i + rem) for i in range ((size//step) + 1)]
+        slots = []
+        for v in values:
+            slots.append(tab.put(v))
+        val = chr(ord(values[-1]) + size)
+        slotActual = tab.find(val)
+        self.assertEqual(slotActual, None)
+    
+    def test_find_last_collisions(self):
+        size = 17
+        step = 3
+        tab  = HashTable(sz = size, stp = step)
+        rem = 1
+        values = [chr(size*i + rem) for i in range ((size//step))]
+        slots = []
+        for v in values[:-1:]:
+            slots.append(tab.put(v))
+        val = values[-2]
+        slotActual = tab.find(val)
+        self.assertEqual(slotActual, slots[-1])
