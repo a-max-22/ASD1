@@ -43,7 +43,7 @@ class PowerSet:
         return diff
 
     def issubset(self, set2):
-        for e in self.container:
-            if not set2.get(e): 
+        for e in set2.container:
+            if not self.get(e): 
                 return False                
         return True

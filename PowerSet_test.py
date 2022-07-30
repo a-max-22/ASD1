@@ -235,13 +235,13 @@ class TestSubset(unittest.TestCase):
         N = 10
         set1 = PowerSet()
         set2 = init_set([x for x in range(N)])
-        self.assertFalse(set2.issubset(set1))
+        self.assertFalse(set1.issubset(set2))
 
     def test_empty_set_is_always_subset(self):
         N = 10
         set1 = init_set([x for x in range(N)])
         set2 = PowerSet()
-        self.assertTrue(set2.issubset(set1))
+        self.assertFalse(set2.issubset(set1))
 
     def test_subset_non_intersecting(self):
         N = 11
@@ -261,15 +261,15 @@ class TestSubset(unittest.TestCase):
         N = 11
         set1 = init_set([x for x in range(N)])
         set2 = init_set([x for x in range(0, 3*N)])
-        self.assertFalse(set2.issubset(set1))
-        self.assertTrue(set1.issubset(set2))
+        self.assertFalse(set1.issubset(set2))
+        self.assertTrue(set2.issubset(set1))
         
     def test_subset_fast_enough(self):
         N = 20000
         set1 = init_set([x for x in range(N)])
         set2 = init_set([x for x in range(0, 3*N)])
         startTime = time.time()
-        self.assertFalse(set2.issubset(set1))
-        self.assertTrue(set1.issubset(set2))
+        self.assertFalse(set1.issubset(set2))
+        self.assertTrue(set2.issubset(set1))
         endTime = time.time()
         self.assertTrue(endTime - startTime < 3)
