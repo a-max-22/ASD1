@@ -3,7 +3,7 @@ class BloomFilter:
     def __init__(self, f_len):
         self.filter_len = f_len
         self.mask_unit_size = 32
-        self.filter_mask = [0]*(f_len // self.mask_unit_size)
+        self.filter_mask = 0
 
     def general_hash(self, key, val):
         res = 0
@@ -18,22 +18,19 @@ class BloomFilter:
     def hash2(self, str1):
         return self.general_hash(223, str1)
     
-    def get_unit_index_and_bitmask(self, pos):
+    def get_bitmask(self, pos):
         if pos > self.filter_len or pos < 0:
             raise IndexError('Position is outside of bitfield bounds')
-        unitIndex = pos // self.mask_unit_size        
-        bitPos    = pos % self.mask_unit_size        
-        unit      = self.filter_mask[unitIndex]
-        bitMask   = 1 << bitPos
-        return (unitIndex, bitMask)
+        bitMask   = 1 << pos
+        return bitMask
         
     def set_bit(self, pos):
-        unitIndex, bitMask = self.get_unit_index_and_bitmask(pos)        
-        self.filter_mask[unitIndex] = self.filter_mask[unitIndex] | bitMask
+        bitMask = self.get_bitmask(pos)        
+        self.filter_mask = self.filter_mask | bitMask
     
     def is_bit_set(self, pos):
-        unitIndex, bitMask = self.get_unit_index_and_bitmask(pos)        
-        return (self.filter_mask[unitIndex] & bitMask) != 0
+        bitMask = self.get_bitmask(pos)        
+        return (self.filter_mask & bitMask) != 0
     
     def add(self, str1):
         p1 = self.hash1(str1)

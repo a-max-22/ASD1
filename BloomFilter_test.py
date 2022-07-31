@@ -6,15 +6,13 @@ class TestInternalFunctions(unittest.TestCase):
     def test_set_bit_first(self):
         flt = BloomFilter(f_len = 32)
         flt.set_bit(8)
-        self.assertEqual(flt.filter_mask[0], 0x100)
-        self.assertEqual(len(flt.filter_mask), 1)
+        self.assertEqual(flt.filter_mask, 0x100)        
 
     def test_set_bit_second_unit(self):
         mask_len = 64
         flt = BloomFilter(f_len = mask_len)
         flt.set_bit(8+32)
-        self.assertEqual(flt.filter_mask[1], 0x100)
-        self.assertEqual(len(flt.filter_mask), 2)
+        self.assertEqual(flt.filter_mask, 0x10000000000)        
     
 class TestAddAndIsValue(unittest.TestCase):
 
